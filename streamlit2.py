@@ -66,16 +66,25 @@ def get_esri_basemap_image(lat, lon, size=640, zoom=17):
     image = Image.open(BytesIO(response.content))
     return image
 
-MODEL_URL = "https://github.com/AvinashMehta2000/releases/download/v1.0/yolo11lv3.pt"
+MODEL_URL = "https://raw.githubusercontent.com/AvinashMehta2000/Streamlit-webapp/main/yolo11lv3.pt"
 MODEL_PATH = "yolo11lv3.pt"
 
-# Download the model if it doesn't exist
-if not os.path.exists(MODEL_PATH):
-    with st.spinner("Downloading model..."):
-        response = requests.get(MODEL_URL, stream=True)
-        with open(MODEL_PATH, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
+# Function to download the model if it doesn't exist
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("Downloading YOLO model from GitHub..."):
+            response = requests.get(MODEL_URL, stream=True)
+            if response.status_code == 200:
+                with open(MODEL_PATH, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                st.success("Model downloaded successfully!")
+            else:
+                st.error(f"Failed to download model! Status code: {response.status_code}")
+
+# Download the model
+download_model()
+
 # Load the model
 @st.cache_resource
 def load_model():
