@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import os
 from io import BytesIO
 from PIL import Image, ImageDraw
 import numpy as np
