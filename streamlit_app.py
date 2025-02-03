@@ -118,6 +118,11 @@ if __name__ == "__main__":
     main()
 
 # Sidebar: Model Details
+# Add a horizontal line after the section
+st.sidebar.markdown(
+    """<hr style="border: 1px solid #2e86de; margin: 10px 0;">""", 
+    unsafe_allow_html=True
+)
 st.sidebar.subheader("📌 Model Details")
 st.sidebar.markdown(
     """
@@ -141,7 +146,10 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
-
+st.sidebar.markdown(
+    """<hr style="border: 1px solid #2e86de; margin: 10px 0;">""", 
+    unsafe_allow_html=True
+)
 st.sidebar.subheader("📌 Accuracy Metrics")
 col1, col2, col3 = st.sidebar.columns(3)
 col1.metric(label="🎯 Precision %", value="95.3")
