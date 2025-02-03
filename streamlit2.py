@@ -128,7 +128,7 @@ if st.sidebar.button("Run Detection"):
     with st.spinner("Fetching ESRI basemap image..."):
         basemap_image = get_esri_basemap_image(lat, lon)
     
-    st.image(basemap_image, caption="Esri Basemap", use_container_width=True)
+    st.image(basemap_image, caption="Esri Basemap")
 
     # Convert to NumPy array for YOLO
     image_np = np.array(basemap_image.convert("RGB"))
@@ -146,7 +146,7 @@ if st.sidebar.button("Run Detection"):
             x1, y1, x2, y2 = box[:4]
             draw.rectangle([x1, y1, x2, y2], outline="red", width=2)
 
-    st.image(annotated_image, caption="Detection Results", use_container_width=True)
+    st.image(annotated_image, caption="Detection Results")
     
 # Sidebar: Model Details
 st.sidebar.subheader("📌 Model Details")
