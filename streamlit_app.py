@@ -48,15 +48,19 @@ def main():
         kiln_coords = (kiln["latitude"], kiln["longitude"])
         
         # Check if the city search is active and kiln is within the radius
-        if search_city and city_coords:
-            distance = geodesic(city_coords, kiln_coords).km
-            if distance <= search_radius:
-                color = "red"  # 🔴 Mark kilns inside the search radius
+        if search_city:
+            if city_coords:  # Check if city_coords are valid (not None)
+                distance = geodesic(city_coords, kiln_coords).km
+                if distance <= search_radius:
+                    color = "red"  # 🔴 Mark kilns inside the search radius
+                else:
+                    color = "blue"  # 🔵 Mark kilns outside the search radius
             else:
-                color = "blue"  # 🔵 Mark kilns outside the search radius
+                st.error(f"City '{search_city}' not found!")
+                color = "blue"  # Default color if city coordinates are not found
         else:
-            color = "blue"  # Default color if no city is selected
-        
+            color = "blue"  # Default color if no city is entered
+    
         # Plot the kiln with the assigned color
         folium.CircleMarker(
             location=[kiln["latitude"], kiln["longitude"]],
@@ -67,6 +71,7 @@ def main():
             fill_opacity=1,
             popup=f"<b>{kiln.get('name', 'Brick Kiln')}</b>"
         ).add_to(m)
+
 
     # Search UI (additional feature)
     st.sidebar.header("🏙️ City Search")
