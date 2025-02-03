@@ -19,7 +19,7 @@ def get_city_coords(city_name):
     return None
 
 def main():
-    st.title("🗺️ Brick Kiln Locations Explorer")
+    st.title("🗺️ Brick Kiln Location Explorer")
     
     st.markdown(
         """
@@ -55,7 +55,7 @@ def main():
         ).add_to(m)
 
     # Search UI (additional feature)
-    st.sidebar.header("City Search")
+    st.sidebar.header("🏙️ City Search")
     search_city = st.sidebar.text_input("Enter city name (e.g., 'Varanasi'):")
     search_radius = st.sidebar.slider("Search radius (km)", 1, 100, 20)
 
@@ -96,6 +96,8 @@ def main():
             st.success(f"Found {len(nearby_brickkilns)} brickkilns within {search_radius} km of {search_city}")
         else:
             st.warning(f"No brickkilns found within {search_radius} km of {search_city}")
+    else:
+        st.error(f"City '{search_city}' not found!")
 
     # Display map
     html(m._repr_html_(), width=1000, height=800)
