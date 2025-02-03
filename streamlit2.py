@@ -40,6 +40,18 @@ def get_bounding_box(lat, lon, zoom=17, size=640):
     return (xmin, ymin, xmax, ymax)
 
 def get_esri_basemap_image(lat, lon, size=640, zoom=17):
+    """
+    Fetch a 640x640 basemap image from Esri using a center lat/lon.
+    
+    Args:
+        lat (float): Center latitude
+        lon (float): Center longitude
+        size (int): Image size in pixels
+        zoom (int): Zoom level
+    
+    Returns:
+        PIL.Image: The fetched basemap image or None if the request fails.
+    """
     try:
         bbox = get_bounding_box(lat, lon, zoom, size)
         url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export"
@@ -56,7 +68,7 @@ def get_esri_basemap_image(lat, lon, size=640, zoom=17):
         image = Image.open(BytesIO(response.content))
         return image
     except requests.exceptions.RequestException as e:
-        st.error(f"Failed to fetch image: {e}")
+        st.error(f"Failed to fetch image from Esri API: {e}")
         return None
 
 MODEL_URL = "https://raw.githubusercontent.com/AvinashMehta2000/Streamlit-webapp/main/yolo11lv3.pt"
