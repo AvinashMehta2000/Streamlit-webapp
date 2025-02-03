@@ -87,74 +87,77 @@ def main():
             st.warning(f"No brickkilns found within {search_radius} km of {search_city}")
 
     # Display map
-    html(m._repr_html_(), width=1200, height=600)
+    html(m._repr_html_(), width=1000, height=800)
 
 
-    # Author details in a styled box at the bottom of the sidebar
-    st.sidebar.markdown(
-        """
-        <style>
-        .author-box {
-            position: relative;
-            bottom: 20px;
-            background-color: #f0f2f6;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 300px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #2e86de;
+# Sidebar: Model Details
+st.sidebar.subheader("📌 Model Details")
+st.sidebar.markdown(
+    """
+    <style>
+        .model-details p {
+            margin-bottom: 2px;  /* Reduces spacing */
+            font-size: 16px;  /* Adjusts text size */           
         }
-        .author-box h3 {
-            color: #2e86de;
-            margin-top: 0;
-        }
-        </style>
-        
-        <div class="author-box">
-            <h3>📌 Author Details</h3>
-            <p><strong>Avinash Mehta</strong></p>
-            <div style="display: flex; gap: 15px; margin-top: 10px;">
-                <a href="https://www.linkedin.com/in/avinash-mehta-115624240" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.icons8.com/color/48/000000/linkedin.png" width="28" height="28">
-                    <span style="color: #2e86de; vertical-align: super;">LinkedIn</span>
-                </a>
-                <a href="https://github.com/AvinashMehta2000" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.icons8.com/color/48/000000/github.png" width="28" height="28">
-                    <span style="color: #2e86de; vertical-align: super;">GitHub</span>
-                </a>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    </style>
+    <div class="model-details">
+        <p><b>Model:</b> YOLO11-l</p>
+        <p><b>Pretrained:</b> Yes (COCO)</p>
+        <p><b>Train images:</b> >700</p>
+        <p><b>Train Instances:</b> >2500</p>
+        <p><b>Val Instances:</b> 358</p>
+        <p><b>Epochs:</b> 500</p>
+        <p><b>Trained on NVIDIA RTX5000 Ada</b></p>
+        <p></p>
+        <p></p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-    # # Author details in the sidebar
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.markdown("")  
-    # st.sidebar.header("Author Details")
-    # st.sidebar.markdown("**Avinash Mehta**")
+st.sidebar.subheader("📌 Accuracy Metrics")
+col1, col2, col3 = st.sidebar.columns(3)
+col1.metric(label="🎯 Precision %", value="95.3")
+col2.metric(label="🔍 Recall %", value="97.2") 
+col3.metric(label="📊 mAP50 %", value="98.2")
+
+# Author details in a styled box at the bottom of the sidebar
+st.sidebar.markdown(
+    """
+    <style>
+    .author-box {
+        position: relative;
+        bottom: 20px;
+        background-color: #f0f2f6;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 50px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-left: 4px solid #2e86de;
+    }
+    .author-box h3 {
+        color: #2e86de;
+        margin-top: 0;
+    }
+    </style>
     
-    # # LinkedIn and GitHub links with logos
-    # st.sidebar.markdown(
-    #     """
-    #     <div style="display: flex; align-items: center; gap: 10px;">
-    #         <a href="https://www.linkedin.com/in/avinash-mehta-115624240" target="_blank">
-    #             <img src="https://img.icons8.com/color/48/000000/linkedin.png" width="24" height="24">
-    #         </a>
-    #         <a href="https://github.com/AvinashMehta2000" target="_blank">
-    #             <img src="https://img.icons8.com/color/48/000000/github.png" width="24" height="24">
-    #         </a>
-    #     </div>
-    #     """,
-    #     unsafe_allow_html=True
-    # )
+    <div class="author-box">
+        <h3>📌 Author Details</h3>
+        <p><strong>Avinash Mehta</strong></p>
+        <div style="display: flex; gap: 15px; margin-top: 10px;">
+            <a href="https://www.linkedin.com/in/avinash-mehta-115624240" target="_blank" style="text-decoration: none;">
+                <img src="https://img.icons8.com/color/48/000000/linkedin.png" width="28" height="28">
+                <span style="color: #2e86de; vertical-align: super;">LinkedIn</span>
+            </a>
+            <a href="https://github.com/AvinashMehta2000" target="_blank" style="text-decoration: none;">
+                <img src="https://img.icons8.com/color/48/000000/github.png" width="28" height="28">
+                <span style="color: #2e86de; vertical-align: super;">GitHub</span>
+            </a>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 if __name__ == "__main__":
     main()
