@@ -155,7 +155,10 @@ col1, col2, col3 = st.sidebar.columns(3)
 col1.metric(label="🎯 Precision %", value="95.3")
 col2.metric(label="🔍 Recall %", value="97.2") 
 col3.metric(label="📊 mAP50 %", value="98.2")
-
+st.sidebar.markdown(
+    """<hr style="border: 1px solid #2e86de; margin: 10px 0;">""", 
+    unsafe_allow_html=True
+)
 # Author details in a styled box at the bottom of the sidebar
 st.sidebar.markdown(
     """
@@ -166,7 +169,7 @@ st.sidebar.markdown(
         background-color: #f0f2f6;
         border-radius: 10px;
         padding: 15px;
-        margin-top: 50px;
+        margin-top: 40px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         border-left: 4px solid #2e86de;
     }
