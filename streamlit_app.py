@@ -42,17 +42,17 @@ def main():
                   tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
                   attr='Esri World Imagery')
 
-# Add brick kiln locations to the map with color differentiation
-for _, brickkiln in df.iterrows():
-    folium.CircleMarker(
-        location=[brickkiln['latitude'], brickkiln['longitude']],
-        radius=2,  # Small blue dot
-        color='blue',
-        fill=True,
-        fill_color='blue',
-        fill_opacity=1,
-        popup=f"<b>{brickkiln.get('name', 'brickkiln')}</b>"
-    ).add_to(m)
+    # Add brick kiln locations to the map with color differentiation
+    for _, brickkiln in df.iterrows():
+        folium.CircleMarker(
+            location=[brickkiln['latitude'], brickkiln['longitude']],
+            radius=2,  # Small blue dot
+            color='blue',
+            fill=True,
+            fill_color='blue',
+            fill_opacity=1,
+            popup=f"<b>{brickkiln.get('name', 'brickkiln')}</b>"
+        ).add_to(m)
 
 
     # Search UI (additional feature)
