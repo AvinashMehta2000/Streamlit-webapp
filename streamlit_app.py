@@ -91,6 +91,20 @@ def main():
             if distance <= search_radius:
                 brickkiln['distance'] = round(distance, 2)
                 nearby_brickkilns.append(brickkiln)
+                color = "red"  # Mark kilns within the search radius as red
+            else:
+                color = "blue"  # Mark kilns outside the search radius as blue
+            
+            # Add brickkiln marker to map with the assigned color
+            folium.CircleMarker(
+                location=[brickkiln['latitude'], brickkiln['longitude']],
+                radius=3,  # Increased size for better visibility
+                color=color,
+                fill=True,
+                fill_color=color,
+                fill_opacity=1,
+                popup=f"<b>{brickkiln.get('name', 'brickkiln')}</b>"
+            ).add_to(m)
 
         if nearby_brickkilns:
             st.success(f"Found {len(nearby_brickkilns)} brickkilns within {search_radius} km of {search_city}")
