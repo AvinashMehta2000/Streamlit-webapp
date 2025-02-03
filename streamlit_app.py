@@ -20,8 +20,19 @@ def get_city_coords(city_name):
 
 def main():
     st.title("🗺️ Brick Kiln Locations Explorer")
-    st.markdown("Explore brickkilns near any city")
-
+    
+    st.markdown(
+        """
+        Explore model-detected brick kilns across the **Indo-Gangetic Plain (IGP)**. 
+        You can view brick kilns in any city within a specified radius.
+        
+        ### 🔍 How to Explore:
+        1. **Navigate directly** using the cursor.
+        2. **Search for a city** by entering its name in the sidebar.
+        3. **Define the search area** by setting a radius (in kilometers).
+        """,
+        unsafe_allow_html=True
+    )
     # Load CSV data directly
     df = pd.read_csv(CSV_DATA)
 
@@ -89,6 +100,8 @@ def main():
     # Display map
     html(m._repr_html_(), width=1000, height=800)
 
+if __name__ == "__main__":
+    main()
 
 # Sidebar: Model Details
 st.sidebar.subheader("📌 Model Details")
@@ -158,6 +171,3 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
-
-if __name__ == "__main__":
-    main()
