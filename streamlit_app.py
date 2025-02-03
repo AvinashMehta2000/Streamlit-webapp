@@ -42,17 +42,30 @@ def main():
                   tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
                   attr='Esri World Imagery')
 
-    # Add all brickkiln points directly to the map (blue dots)
-    for _, brickkiln in df.iterrows():
-        folium.CircleMarker(
-            location=[brickkiln['latitude'], brickkiln['longitude']],
-            radius=2,  # Small blue dot
-            color='blue',
-            fill=True,
-            fill_color='blue',
-            fill_opacity=1,
-            popup=f"<b>{brickkiln.get('name', 'brickkiln')}</b>"
-        ).add_to(m)
+# Add brick kiln locations to the map with color differentiation
+for _, kiln in df.iterrows():
+    kiln_coords = (kiln["latitude"], kiln["longitude"])
+    
+    # Check if the kiln is within the defined radius
+    if search_city and city_coords:
+        distance = geodesic(city_coords, kiln_coords).km
+        if distance <= search_radius:
+            color = "red"  # 🔴 Red for kilns within the radius
+        else:
+            color = "blue"  # 🔵 Blue for kilns outside the radius
+    else:
+        color = "blue"  # Default blue if no search city is selected
+    
+    folium.CircleMarker(
+        location=kiln_coords,
+        radius=3,  # Adjusted size for better visibility
+        color=color,
+        fill=True,
+        fill_color=color,
+        fill_opacity=1,
+        popup=f"<b>{kiln.get('name', 'Brick Kiln')}</b><br>Distance: {round(distance,2)} km"
+    ).add_to(m)
+
 
     # Search UI (additional feature)
     st.sidebar.header("🏙️ City Search")
@@ -96,8 +109,6 @@ def main():
             st.success(f"Found {len(nearby_brickkilns)} brickkilns within {search_radius} km of {search_city}")
         else:
             st.warning(f"No brickkilns found within {search_radius} km of {search_city}")
-    else:
-        st.error(f"City '{search_city}' not found!")
 
     # Display map
     html(m._repr_html_(), width=1000, height=800)
