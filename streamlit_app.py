@@ -43,27 +43,15 @@ def main():
                   attr='Esri World Imagery')
 
 # Add brick kiln locations to the map with color differentiation
-for _, kiln in df.iterrows():
-    kiln_coords = (kiln["latitude"], kiln["longitude"])
-    
-    # Check if the kiln is within the defined radius
-    if search_city and city_coords:
-        distance = geodesic(city_coords, kiln_coords).km
-        if distance <= search_radius:
-            color = "red"  # 🔴 Red for kilns within the radius
-        else:
-            color = "blue"  # 🔵 Blue for kilns outside the radius
-    else:
-        color = "blue"  # Default blue if no search city is selected
-    
+for _, brickkiln in df.iterrows():
     folium.CircleMarker(
-        location=kiln_coords,
-        radius=3,  # Adjusted size for better visibility
-        color=color,
+        location=[brickkiln['latitude'], brickkiln['longitude']],
+        radius=2,  # Small blue dot
+        color='blue',
         fill=True,
-        fill_color=color,
+        fill_color='blue',
         fill_opacity=1,
-        popup=f"<b>{kiln.get('name', 'Brick Kiln')}</b><br>Distance: {round(distance,2)} km"
+        popup=f"<b>{brickkiln.get('name', 'brickkiln')}</b>"
     ).add_to(m)
 
 
